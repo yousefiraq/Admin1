@@ -1,0 +1,114 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f8f9fa;
+}
+
+.container {
+    width: 50%;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input, button {
+    width: 90%;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+body {
+    background-image: url('background.jpg'); /* إضافة صورة خلفية */
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.header img {
+    height: 80px; /* ضبط حجم الشعار */
+    margin-right: 15px;
+}
+
+/* وضع داكن */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* جدول المستخدمين */
+#usersTable {
+    width: 90%; /* تكبير الجدول */
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+#usersTable th, #usersTable td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+#usersTable th {
+    background-color: #333;
+    color: white;
+}
+
+/* تأثيرات احترافية */
+.button {
+    background: linear-gradient(45deg, #ff6b6b, #556270);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.button:hover {
+    background: linear-gradient(45deg, #556270, #ff6b6b);
+}
+
+/* خلفية مع العلم العراقي */
+body {
+    background-image: url('background.jpg'), url('iraq_flag.png');
+    background-size: cover, 150px;
+    background-position: center, top right;
+    background-repeat: no-repeat;
+}
