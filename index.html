@@ -1,20 +1,36 @@
-<h2>إدارة المستخدمين</h2>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الطلبات</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <img src="logo.png" alt="الشعار">
+        <h1>نظام إدارة الطلبات</h1>
+        <button id="darkModeToggle" class="button">الوضع الداكن</button>
+    </div>
 
-<input type="text" id="userId" placeholder="معرف المستخدم">
-<input type="text" id="userName" placeholder="الاسم">
-<input type="text" id="userEmail" placeholder="البريد الإلكتروني">
-<button onclick="addUserFromInput()">إضافة مستخدم</button>
+    <div class="container">
+        <h2>إدارة الطلبات</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>الاسم</th>
+                    <th>الهاتف</th>
+                    <th>العنوان</th>
+                    <th>الحالة</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody id="ordersTable"></tbody>
+        </table>
+    </div>
 
-<table border="1">
-    <thead>
-        <tr>
-            <th>معرف المستخدم</th>
-            <th>الاسم</th>
-            <th>البريد الإلكتروني</th>
-            <th>إجراء</th>
-        </tr>
-    </thead>
-    <tbody id="usersTableBody"></tbody>
-</table>
-
-<script src="script.js"></script>
+    <script src="firebase-config.js" type="module"></script>
+    <script src="orders.js" type="module"></script>
+    <script src="script.js" type="module"></script>
+</body>
+</html>
