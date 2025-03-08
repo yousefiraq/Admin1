@@ -1,71 +1,76 @@
-import { db, collection, addDoc } from "./firebase-config.js";
+import { getFirestore, collection, doc, setDoc, updateDoc, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
-document.getElementById("orderForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
+const db = getFirestore(); // الاتصال بقاعدة البيانات
 
-    let name = document.getElementById("name").value;
-    let phone = document.getElementById("phone").value;
-    let address = document.getElementById("address").value;
+// ✅ إضافة مستخدم جديد
+async function addUser(userId, name, email) {
+    try {
+        await setDoc(doc(db, "users", userId), { name, email });
+        console.log("تمت إضافة المستخدم بنجاح!");
+        getUsers(); // تحديث الجدول تلقائيًا
+    } catch (error) {
+        console.error("خطأ في الإضافة:", error);
+    }
+}
 
-    if (name && phone && address) {
+// ✅ تحديث بيانات المستخدم
+async function updateUser(userId, newData) {
+    try {
+        const userRef = doc(db, "users", userId);
+        await updateDoc(userRef, newData);
+        console.log("تم التحديث بنجاح!");
+        getUsers(); // تحديث الجدول تلقائيًا
+    } catch (error) {
+        console.error("خطأ في التحديث:", error);
+    }
+}
+
+// ✅ حذف مستخدم
+async function deleteUser(userId) {
+    if (confirm("هل أنت متأكد أنك تريد حذف هذا المستخدم؟")) {
         try {
-            await addDoc(collection(db, "orders"), { name, phone, address, status: "قيد الانتظار" });
-            alert("تم إرسال الطلب بنجاح!");
-            document.getElementById("orderForm").reset();
+            await deleteDoc(doc(db, "users", userId));
+            console.log("تم الحذف بنجاح!");
+            getUsers(); // تحديث الجدول تلقائيًا
         } catch (error) {
-            console.error("خطأ في إرسال الطلب: ", error);
+            console.error("خطأ في الحذف:", error);
         }
-    } else {
-        alert("يرجى ملء جميع الحقول!");
     }
-});
+}
 
-// تفعيل الوضع الداكن
-document.getElementById("darkModeToggle").addEventListener("click", function() {
-    document.body.classList.toggle("dark-mode");
-});
+// ✅ جلب وعرض المستخدمين في الجدول
+async function getUsers() {
+    const querySnapshot = await getDocs(collection(db, "users"));
+    const tableBody = document.getElementById("usersTableBody");
+    tableBody.innerHTML = ""; // مسح الجدول قبل إعادة تحميله
 
-// إضافة مستخدم جديد
-function addUser() {
-    let table = document.getElementById("usersTable");
-    let rowCount = table.rows.length;
-    let row = table.insertRow(rowCount);
+    querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const row = `<tr>
+            <td>${doc.id}</td>
+            <td>${data.name}</td>
+            <td>${data.email}</td>
+            <td>
+                <button onclick="updateUser('${doc.id}', { name: prompt('أدخل الاسم الجديد:', '${data.name}') })">تحديث</button>
+                <button onclick="deleteUser('${doc.id}')">❌ حذف</button>
+            </td>
+        </tr>`;
+        tableBody.innerHTML += row;
+    });
+}
+
+// ✅ دالة إضافة المستخدم من الإدخال
+function addUserFromInput() {
+    const userId = document.getElementById("userId").value;
+    const name = document.getElementById("userName").value;
+    const email = document.getElementById("userEmail").value;
     
-    row.insertCell(0).innerHTML = rowCount; // ترقيم المستخدمين
-    row.insertCell(1).innerHTML = document.getElementById("nameInput").value;
-    row.insertCell(2).innerHTML = document.getElementById("emailInput").value;
-    row.insertCell(3).innerHTML = '<button onclick="editUser(this)">تعديل</button> <button onclick="deleteUser(this)">حذف</button>';
-
-    document.getElementById("nameInput").value = "";
-    document.getElementById("emailInput").value = "";
-}
-
-// حذف مستخدم
-function deleteUser(btn) {
-    let row = btn.parentNode.parentNode;
-    row.parentNode.removeChild(row);
-    updateUserNumbers();
-}
-
-// تعديل مستخدم
-function editUser(btn) {
-    let row = btn.parentNode.parentNode;
-    let name = row.cells[1].innerHTML;
-    let email = row.cells[2].innerHTML;
-
-    let newName = prompt("تعديل الاسم:", name);
-    let newEmail = prompt("تعديل البريد:", email);
-
-    if (newName && newEmail) {
-        row.cells[1].innerHTML = newName;
-        row.cells[2].innerHTML = newEmail;
+    if (userId && name && email) {
+        addUser(userId, name, email);
+    } else {
+        alert("يرجى إدخال جميع البيانات!");
     }
 }
 
-// تحديث أرقام المستخدمين بعد الحذف
-function updateUserNumbers() {
-    let table = document.getElementById("usersTable");
-    for (let i = 1; i < table.rows.length; i++) {
-        table.rows[i].cells[0].innerHTML = i;
-    }
-}
+// ✅ تحميل البيانات عند فتح الصفحة
+window.onload = getUsers;
