@@ -47,13 +47,13 @@ async function fetchOrders() {
                     <td>
                         <div class="map-actions">
                             ${data.latitude && data.longitude ? `
-                            <button class="map-btn" onclick="showOrderMap(${parseFloat(data.latitude)},${parseFloat(data.longitude)})">
+                            <button class="map-btn" onclick="showOrderMap(${data.latitude},${data.longitude})">
                                 🌍 عرض الخريطة
                             </button>
-                            <button class="google-btn" onclick="openGoogleMaps(${parseFloat(data.latitude)},${parseFloat(data.longitude)})">
+                            <button class="google-btn" onclick="openGoogleMaps(${data.latitude},${data.longitude})">
                                 🗺️ فتح في Google Maps
                             </button>
-                            <button class="waze-btn" onclick="openWaze(${parseFloat(data.latitude)},${parseFloat(data.longitude)})">
+                            <button class="waze-btn" onclick="openWaze(${data.latitude},${data.longitude})">
                                 🚗 فتح في Waze
                             </button>
                             ` : '❌ لا يوجد موقع'}
