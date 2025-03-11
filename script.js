@@ -12,7 +12,7 @@ window.addEventListener('load', () => {
 });
 
 const platform = new H.service.Platform({
-    apikey: "7kAhoWptjUW7A_sSWh3K2qaZ6Lzi4q3xaDRYwFWnCbE"
+    apikey: "7kAhoWptjUW7A_sSWh3K2qaZ6Lzi4q3xaDRYwFWnCbE" // استبدل بمفتاح HERE Maps
 });
 
 window.showOrderMap = (lat, lng) => {
@@ -68,13 +68,13 @@ window.showOrderMap = (lat, lng) => {
 
         const marker = new H.map.Marker({ lat: lat, lng: lng });
         map.addObject(marker);
-        new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+        const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
         H.ui.UI.createDefault(map, defaultLayers);
     }, 100);
 };
 
 window.openGoogleMaps = (lat, lng) => {
-    window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, '_blank');
+    window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`, '_blank');
 };
 
 window.openWaze = (lat, lng) => {
