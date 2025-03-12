@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة توصيل الغاز</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+</head>
+<body>
+    <div class="header">
+        <img src="https://i.imgur.com/KpQqytJ.jpeg" class="iraq-logo" alt="شعار العراق">
+        <h1>نظام إدارة توصيل الغاز الوطني</h1>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="🔍 ابحث باسم العميل...">
+            <button id="darkModeToggle" class="dark-mode-btn">🌓 الوضع الداكن</button>
+        </div>
+        
+        <div class="counters-container">
+            <div class="counter-box total">
+                <h3>إجمالي الطلبات</h3>
+                <span id="totalOrders">0</span>
+            </div>
+            <div class="counter-box pending">
+                <h3>قيد الانتظار</h3>
+                <span id="pendingOrders">0</span>
+            </div>
+            <div class="counter-box delivered">
+                <h3>تم التوصيل</h3>
+                <span id="deliveredOrders">0</span>
+            </div>
+            <div class="counter-box canceled">
+                <h3>ملغاة</h3>
+                <span id="canceledOrders">0</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>الطلبات الحالية</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>الاسم</th>
+                    <th>الهاتف</th>
+                    <th>العنوان</th>
+                    <th>حالة الطلب</th>
+                    <th>الموقع</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody id="ordersTable"></tbody>
+        </table>
+    </div>
+
+    <script src="firebase-config.js" type="module"></script>
+    <script src="orders.js" type="module"></script>
+    <script src="script.js" type="module"></script>
+</body>
+</html>
