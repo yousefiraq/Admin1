@@ -37,8 +37,10 @@ async function fetchOrders() {
                 <tr>
                     <td>${data.name}</td>
                     <td>${data.phone}</td>
-                    <td>${data.pipes || 0} </td>
+                    <td>${data.pipes || 0} أنبوبة</td>
                     <td>${data.province || 'غير محدد'}</td>
+                    <td>${data.K || 'N/A'}</td>
+                    <td>${data.orderDate || 'غير محدد'}</td>
                     <td>
                         <select class="status-select" data-id="${docItem.id}">
                             <option value="قيد الانتظار" ${data.status === 'قيد الانتظار' ? 'selected' : ''}>قيد الانتظار</option>
@@ -134,18 +136,24 @@ async function editOrderDetails(orderId) {
             const newPhone = prompt("الهاتف الحالي: " + data.phone + "\n\nأدخل الهاتف الجديد:", data.phone);
             const newPipes = prompt("عدد الأنابيب الحالي: " + (data.pipes || 0) + "\n\nأدخل العدد الجديد:", data.pipes);
             const newProvince = prompt("المحافظة الحالية: " + (data.province || 'غير محدد') + "\n\nأدخل المحافظة الجديدة:", data.province);
+            const newK = prompt("القيمة الحالية لـ K: " + (data.K || 'N/A') + "\n\nأدخل القيمة الجديدة:", data.K);
+            const newOrderDate = prompt("تاريخ الطلب الحالي: " + (data.orderDate || 'غير محدد') + "\n\nأدخل التاريخ الجديد:", data.orderDate);
             
             if (
                 newName !== null && 
                 newPhone !== null && 
                 newPipes !== null &&
-                newProvince !== null
+                newProvince !== null &&
+                newK !== null &&
+                newOrderDate !== null
             ) {
                 await updateDoc(docRef, {
                     name: newName || data.name,
                     phone: newPhone || data.phone,
                     pipes: newPipes ? parseInt(newPipes) : data.pipes,
-                    province: newProvince || data.province
+                    province: newProvince || data.province,
+                    K: newK || data.K,
+                    orderDate: newOrderDate || data.orderDate
                 });
                 await fetchOrders();
                 alert("تم التحديث بنجاح!");
