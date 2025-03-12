@@ -151,4 +151,64 @@ body.dark-mode #searchInput {
 }
 
 .counter-box h3 {
-    margin: 0 0 10
+    margin: 0 0 10px 0;
+    font-size: 14px;
+}
+
+.counter-box span {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.total { border: 3px solid #ce1126; }
+.pending { border: 3px solid #ffc107; }
+.delivered { border: 3px solid #28a745; }
+.canceled { border: 3px solid #dc3545; }
+
+body.dark-mode .counter-box {
+    background: rgba(40, 40, 40, 0.9);
+    color: white;
+}
+
+.map-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.map-btn, .google-btn, .waze-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.map-btn { background: linear-gradient(45deg, #007bff, #0056b3); }
+.google-btn { background: linear-gradient(45deg, #4285F4, #357ABD); }
+.waze-btn { background: linear-gradient(45deg, #33CCFF, #0099CC); }
+
+.map-btn:hover, .google-btn:hover, .waze-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+body.dark-mode .map-btn { background: linear-gradient(45deg, #333, #444); }
+body.dark-mode .google-btn { background: linear-gradient(45deg, #1a73e8, #1557b0); }
+body.dark-mode .waze-btn { background: linear-gradient(45deg, #0099CC, #006699); }
+
+/* تحسينات عمود "عدد الأنابيب" */
+td:nth-child(3) {
+    min-width: 120px;
+    font-weight: bold;
+    color: #ce1126;
+}
+
+body.dark-mode td:nth-child(3) {
+    color: #ff6b6b;
+}
