@@ -37,7 +37,7 @@ async function fetchOrders() {
                 <tr>
                     <td>${data.name}</td>
                     <td>${data.phone}</td>
-                    <td>${data.pipes || 0} أنبوبة</td>
+                    <td>${data.pipes || 0} </td>
                     <td>${data.province || 'غير محدد'}</td>
                     <td>${data.orderDate || 'غير محدد'}</td>
                     <td>
