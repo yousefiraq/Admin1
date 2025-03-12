@@ -11,7 +11,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBf9FQ...", // استبدلها بمفاتيح مشروعك
+    apiKey: "API_KEY_FIREBASE", // استبدلها بمفاتيح مشروعك
     authDomain: "gaz-delivery-1.firebaseapp.com",
     projectId: "gaz-delivery-1",
     storageBucket: "gaz-delivery-1.appspot.com",
