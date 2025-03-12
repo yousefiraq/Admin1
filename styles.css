@@ -202,22 +202,44 @@ body.dark-mode .map-btn { background: linear-gradient(45deg, #333, #444); }
 body.dark-mode .google-btn { background: linear-gradient(45deg, #1a73e8, #1557b0); }
 body.dark-mode .waze-btn { background: linear-gradient(45deg, #0099CC, #006699); }
 
-/* تنسيقات الحقول المتبقية */
-td:nth-child(5) {
-    font-style: italic;
-    color: #666;
+/* التنسيقات الجديدة */
+.notes-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-body.dark-mode td:nth-child(5) {
-    color: #999;
+.note-input {
+    display: flex;
+    gap: 10px;
 }
 
-td:nth-child(3) {
-    min-width: 120px;
-    font-weight: bold;
-    color: #ce1126;
+#noteText {
+    padding: 10px 15px;
+    border: 2px solid #ce1126;
+    border-radius: 25px;
+    width: 300px;
+    background: rgba(255, 255, 255, 0.9);
 }
 
-body.dark-mode td:nth-child(3) {
-    color: #ff6b6b;
+.save-btn {
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.save-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+body.dark-mode #noteText {
+    background: #333;
+    color: white;
+    border-color: #666;
 }
