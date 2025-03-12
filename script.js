@@ -12,11 +12,6 @@ window.addEventListener('load', () => {
     }
 });
 
-// تهيئة HERE Maps
-const platform = new H.service.Platform({
-    apikey: "API_KEY_HERE" // استبدلها بمفتاح HERE Maps الخاص بك
-});
-
 // فتح في خرائط Google
 window.openGoogleMaps = (lat, lng) => {
     window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, '_blank');
