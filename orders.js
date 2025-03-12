@@ -49,14 +49,11 @@ async function fetchOrders() {
                     </td>
                     <td>
                         <div class="map-actions">
-                            <button class="map-btn" onclick="showOrderMap(${data.latitude},${data.longitude})">
-                                🌍 عرض الخريطة
-                            </button>
                             <button class="google-btn" onclick="openGoogleMaps(${data.latitude},${data.longitude})">
-                                🗺️ فتح في Google Maps
+                                <i class="fab fa-google"></i> Google
                             </button>
                             <button class="waze-btn" onclick="openWaze(${data.latitude},${data.longitude})">
-                                🚗 فتح في Waze
+                                <i class="fab fa-waze"></i> Waze
                             </button>
                         </div>
                     </td>
@@ -96,7 +93,7 @@ async function fetchOrders() {
 
         searchOrders();
 
-        // جلب النص من Firebase وعرضه في العنوان وحقل الإدخال
+        // جلب النص من Firebase
         const noteDoc = await getDoc(doc(db, "orders", "A", "notes", "current_note"));
         if (noteDoc.exists()) {
             document.getElementById('dynamicTitle').textContent = noteDoc.data().text;
@@ -184,7 +181,7 @@ async function saveNoteToFirebase() {
         });
         alert("تم استبدال الملاحظة القديمة بنجاح!");
         document.getElementById('noteText').value = "";
-        await fetchOrders(); // تحديث الواجهة لعرض التغييرات
+        await fetchOrders();
     } catch (error) {
         console.error("حدث خطأ:", error);
         alert("فشل في الحفظ!");
