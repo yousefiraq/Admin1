@@ -1,4 +1,4 @@
-import { db, collection, getDocs, updateDoc, doc, deleteDoc, getDoc, addDoc } from "./firebase-config.js";
+import { db, collection, getDocs, updateDoc, doc, deleteDoc, getDoc, setDoc } from "./firebase-config.js";
 
 // البحث عن الطلبات
 function searchOrders() {
@@ -95,6 +95,14 @@ async function fetchOrders() {
         });
 
         searchOrders();
+
+        // جلب النص من Firebase وعرضه في العنوان وحقل الإدخال
+        const noteDoc = await getDoc(doc(db, "orders", "A", "notes", "current_note"));
+        if (noteDoc.exists()) {
+            document.getElementById('dynamicTitle').textContent = noteDoc.data().text;
+            document.getElementById('noteText').value = noteDoc.data().text;
+        }
+
     } catch (error) {
         console.error("حدث خطأ في جلب البيانات:", error);
         alert("تعذر تحميل الطلبات!");
@@ -161,23 +169,24 @@ async function editOrderDetails(orderId) {
     }
 }
 
-// دالة حفظ الملاحظة
+// دالة حفظ/استبدال الملاحظة
 async function saveNoteToFirebase() {
     const noteText = document.getElementById('noteText').value.trim();
     if (!noteText) {
-        alert("الرجاء إدخال نص قبل الحفظ!");
+        alert("الرجاء إدخال ملاحظة جديدة!");
         return;
     }
 
     try {
-        await addDoc(collection(db, "orders", "A", "notes"), {
+        await setDoc(doc(db, "orders", "A", "notes", "current_note"), {
             text: noteText,
             timestamp: new Date().toISOString()
         });
-        alert("تم الحفظ بنجاح!");
+        alert("تم استبدال الملاحظة القديمة بنجاح!");
         document.getElementById('noteText').value = "";
+        await fetchOrders(); // تحديث الواجهة لعرض التغييرات
     } catch (error) {
-        console.error("حدث خطأ في الحفظ:", error);
+        console.error("حدث خطأ:", error);
         alert("فشل في الحفظ!");
     }
 }
