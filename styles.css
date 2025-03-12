@@ -202,17 +202,13 @@ body.dark-mode .map-btn { background: linear-gradient(45deg, #333, #444); }
 body.dark-mode .google-btn { background: linear-gradient(45deg, #1a73e8, #1557b0); }
 body.dark-mode .waze-btn { background: linear-gradient(45deg, #0099CC, #006699); }
 
-/* تنسيقات الحقول الجديدة */
-td:nth-child(5), td:nth-child(6) {
-    min-width: 100px;
-}
-
-td:nth-child(6) {
+/* تنسيقات الحقول المتبقية */
+td:nth-child(5) {
     font-style: italic;
     color: #666;
 }
 
-body.dark-mode td:nth-child(6) {
+body.dark-mode td:nth-child(5) {
     color: #999;
 }
 
