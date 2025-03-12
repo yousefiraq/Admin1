@@ -14,7 +14,7 @@ window.addEventListener('load', () => {
 
 // تهيئة HERE Maps
 const platform = new H.service.Platform({
-    apikey: "7kAhoWptjUW7A_sSWh3K2qaZ6Lzi4q3xaDRYwFWnCbE"
+    apikey: "API_KEY_HERE" // استبدلها بمفتاح HERE Maps الخاص بك
 });
 
 // عرض الخريطة في Modal
