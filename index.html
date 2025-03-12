@@ -13,10 +13,6 @@
     <div class="header">
         <img src="https://i.imgur.com/KpQqytJ.jpeg" class="iraq-logo" alt="شعار العراق">
         <h1 id="dynamicTitle">جاري التحميل...</h1>
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="🔍 ابحث باسم العميل...">
-            <button id="darkModeToggle" class="dark-mode-btn">🌓 الوضع الداكن</button>
-        </div>
         
         <div class="counters-container">
             <div class="counter-box total">
@@ -39,13 +35,21 @@
     </div>
 
     <div class="container">
-        <div class="notes-section">
+        <div class="header-section">
             <h2>الطلبات الحالية</h2>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="🔍 ابحث باسم العميل...">
+                <button id="darkModeToggle" class="dark-mode-btn">🌓 الوضع الداكن</button>
+            </div>
+        </div>
+
+        <div class="notes-section">
             <div class="note-input">
                 <input type="text" id="noteText" placeholder="أدخل ملاحظة حديثة...">
                 <button id="saveNoteBtn" class="save-btn">💾 حفظ</button>
             </div>
         </div>
+
         <table>
             <thead>
                 <tr>
