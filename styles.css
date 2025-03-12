@@ -48,7 +48,7 @@ body.dark-mode {
     backdrop-filter: blur(5px);
 }
 
-/* تنسيقات مربع البحث والطلبات الحالية */
+/* تنسيقات البحث والطلبات الحالية */
 .header-section {
     display: flex;
     justify-content: space-between;
@@ -140,7 +140,39 @@ th {
     font-weight: 600;
 }
 
-/* التنسيقات للوضع الداكن */
+/* تنسيقات أزرار الخرائط */
+.map-actions {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+}
+
+.google-btn, .waze-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Tahoma';
+}
+
+.google-btn {
+    background: linear-gradient(45deg, #4285F4, #357ABD);
+}
+
+.waze-btn {
+    background: linear-gradient(45deg, #33CCFF, #0099CC);
+}
+
+.google-btn i, .waze-btn i {
+    font-size: 18px;
+}
+
+/* الوضع الداكن */
 body.dark-mode .container {
     background: rgba(40, 40, 40, 0.95);
 }
@@ -158,6 +190,14 @@ body.dark-mode #noteText {
 
 body.dark-mode .header-section h2 {
     color: #ff6b6b;
+}
+
+body.dark-mode .google-btn {
+    background: linear-gradient(45deg, #1a73e8, #1557b0);
+}
+
+body.dark-mode .waze-btn {
+    background: linear-gradient(45deg, #0099CC, #006699);
 }
 
 /* التجاوب مع الشاشات الصغيرة */
