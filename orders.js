@@ -1,4 +1,4 @@
-import { db, collection, getDocs, updateDoc, doc, deleteDoc, getDoc } from "./firebase-config.js";
+import { db, collection, getDocs, updateDoc, doc, deleteDoc, getDoc, addDoc } from "./firebase-config.js";
 
 // البحث عن الطلبات
 function searchOrders() {
@@ -161,4 +161,29 @@ async function editOrderDetails(orderId) {
     }
 }
 
-window.onload = fetchOrders;
+// دالة حفظ الملاحظة
+async function saveNoteToFirebase() {
+    const noteText = document.getElementById('noteText').value.trim();
+    if (!noteText) {
+        alert("الرجاء إدخال نص قبل الحفظ!");
+        return;
+    }
+
+    try {
+        await addDoc(collection(db, "orders", "A", "notes"), {
+            text: noteText,
+            timestamp: new Date().toISOString()
+        });
+        alert("تم الحفظ بنجاح!");
+        document.getElementById('noteText').value = "";
+    } catch (error) {
+        console.error("حدث خطأ في الحفظ:", error);
+        alert("فشل في الحفظ!");
+    }
+}
+
+// ربط أحداث التحميل والحفظ
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('saveNoteBtn').addEventListener('click', saveNoteToFirebase);
+    fetchOrders();
+});
