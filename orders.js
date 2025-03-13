@@ -1,6 +1,5 @@
 import { db, collection, getDocs, updateDoc, doc, deleteDoc, getDoc, setDoc } from "./firebase-config.js";
 
-// البحث عن الطلبات
 function searchOrders() {
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
     const rows = document.querySelectorAll('#ordersTable tr');
@@ -16,7 +15,6 @@ document.getElementById('searchInput').addEventListener('input', () => {
     searchTimeout = setTimeout(searchOrders, 300);
 });
 
-// جلب وتحديث الطلبات
 async function fetchOrders() {
     const tableBody = document.getElementById("ordersTable");
     tableBody.innerHTML = "";
@@ -66,13 +64,11 @@ async function fetchOrders() {
             tableBody.innerHTML += row;
         });
 
-        // تحديث العدادات
         document.getElementById('totalOrders').textContent = totalOrders;
         document.getElementById('pendingOrders').textContent = pending;
         document.getElementById('deliveredOrders').textContent = delivered;
         document.getElementById('canceledOrders').textContent = canceled;
 
-        // إضافة الأحداث
         document.querySelectorAll('.status-select').forEach(select => {
             select.addEventListener('change', async () => {
                 await updateOrderStatus(select.dataset.id, select.value);
@@ -93,7 +89,6 @@ async function fetchOrders() {
 
         searchOrders();
 
-        // جلب النص من Firebase
         const noteDoc = await getDoc(doc(db, "orders", "A", "notes", "current_note"));
         if (noteDoc.exists()) {
             document.getElementById('dynamicTitle').textContent = noteDoc.data().text;
@@ -106,7 +101,6 @@ async function fetchOrders() {
     }
 }
 
-// حذف الطلب
 async function deleteOrder(orderId) {
     try {
         await deleteDoc(doc(db, "orders", orderId));
@@ -118,7 +112,6 @@ async function deleteOrder(orderId) {
     }
 }
 
-// تحديث حالة الطلب
 async function updateOrderStatus(orderId, newStatus) {
     try {
         await updateDoc(doc(db, "orders", orderId), { status: newStatus });
@@ -129,7 +122,6 @@ async function updateOrderStatus(orderId, newStatus) {
     }
 }
 
-// تعديل تفاصيل الطلب
 async function editOrderDetails(orderId) {
     try {
         const docRef = doc(db, "orders", orderId);
@@ -166,7 +158,6 @@ async function editOrderDetails(orderId) {
     }
 }
 
-// دالة حفظ/استبدال الملاحظة
 async function saveNoteToFirebase() {
     const noteText = document.getElementById('noteText').value.trim();
     if (!noteText) {
@@ -188,7 +179,6 @@ async function saveNoteToFirebase() {
     }
 }
 
-// ربط أحداث التحميل والحفظ
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('saveNoteBtn').addEventListener('click', saveNoteToFirebase);
     fetchOrders();
