@@ -11,9 +11,11 @@
     <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
 </head>
 <body>
+    <button id="darkModeToggle" class="dark-mode-btn">🌓</button>
+
     <div class="header">
         <img src="https://i.imgur.com/KpQqytJ.jpeg" class="iraq-logo" alt="شعار العراق">
-        <h1 id="dynamicTitle">جاري التحميل...</h1>
+        <h1 id="dynamicTitle">نظام إدارة التوصيل</h1>
         <div class="counters-container">
             <div class="counter-box total">
                 <h3>إجمالي الطلبات</h3>
@@ -39,13 +41,12 @@
             <h2>الطلبات الحالية</h2>
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="🔍 ابحث باسم العميل...">
-                <button id="darkModeToggle" class="dark-mode-btn">🌓 الوضع الداكن</button>
             </div>
         </div>
 
         <div class="notes-section">
             <div class="note-input">
-                <input type="text" id="noteText" placeholder="أدخل ملاحظة حديثة...">
+                <input type="text" id="noteText" placeholder="أدخل ملاحظة...">
                 <button id="saveNoteBtn" class="save-btn">💾 حفظ</button>
             </div>
         </div>
