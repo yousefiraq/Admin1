@@ -66,6 +66,28 @@ body.dark-mode {
     transform: rotate(360deg);
 }
 
+.header-actions {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.add-btn {
+    background: linear-gradient(45deg, var(--accent), #3aa8a0);
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    margin: 1rem;
+    transition: all 0.3s;
+}
+
+.add-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
 .counters-container {
     display: flex;
     gap: 1.5rem;
