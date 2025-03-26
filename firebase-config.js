@@ -8,11 +8,14 @@ import {
     doc, 
     deleteDoc,
     getDoc,
-    setDoc
+    setDoc,
+    query,
+    orderBy,
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
 const firebaseConfig = {
-    apiKey: "API_KEY_FIREBASE", // استبدلها بمفاتيح مشروعك
+    apiKey: "API_KEY_FIREBASE",
     authDomain: "gaz-delivery-1.firebaseapp.com",
     projectId: "gaz-delivery-1",
     storageBucket: "gaz-delivery-1.appspot.com",
@@ -24,4 +27,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export { db, collection, addDoc, getDocs, updateDoc, doc, deleteDoc, getDoc, setDoc };
+export { db, collection, addDoc, getDocs, updateDoc, doc, deleteDoc, getDoc, setDoc, query, orderBy, serverTimestamp };
