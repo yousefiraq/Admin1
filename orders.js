@@ -1,4 +1,4 @@
-import { db, collection, getDocs, updateDoc, doc, deleteDoc, getDoc, setDoc } from "./firebase-config.js";
+import { db, collection, getDocs, updateDoc, doc, deleteDoc, getDoc, setDoc, query, orderBy, serverTimestamp } from "./firebase-config.js";
 
 function searchOrders() {
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
@@ -21,7 +21,9 @@ async function fetchOrders() {
     let totalOrders = 0, pending = 0, delivered = 0, canceled = 0;
 
     try {
-        const querySnapshot = await getDocs(collection(db, "orders"));
+        const q = query(collection(db, "orders"), orderBy("orderDate", "desc"));
+        const querySnapshot = await getDocs(q);
+        
         querySnapshot.forEach((docItem) => {
             const data = docItem.data();
             totalOrders++;
@@ -31,13 +33,17 @@ async function fetchOrders() {
                 case 'ملغى': canceled++; break;
             }
 
+            const orderDate = data.orderDate?.toDate ? 
+                data.orderDate.toDate().toLocaleString('ar-EG') : 
+                'غير محدد';
+
             const row = `
                 <tr>
                     <td>${data.name}</td>
                     <td>${data.phone}</td>
                     <td>${data.pipes || 0}</td>
                     <td>${data.province || 'غير محدد'}</td>
-                    <td>${data.orderDate || 'غير محدد'}</td>
+                    <td>${orderDate}</td>
                     <td>
                         <select class="status-select" data-id="${docItem.id}">
                             <option value="قيد الانتظار" ${data.status === 'قيد الانتظار' ? 'selected' : ''}>قيد الانتظار</option>
@@ -132,21 +138,18 @@ async function editOrderDetails(orderId) {
             const newPhone = prompt("الهاتف الحالي: " + data.phone + "\n\nأدخل الهاتف الجديد:", data.phone);
             const newPipes = prompt("عدد الأنابيب الحالي: " + (data.pipes || 0) + "\n\nأدخل العدد الجديد:", data.pipes);
             const newProvince = prompt("المحافظة الحالية: " + (data.province || 'غير محدد') + "\n\nأدخل المحافظة الجديدة:", data.province);
-            const newOrderDate = prompt("تاريخ الطلب الحالي: " + (data.orderDate || 'غير محدد') + "\n\nأدخل التاريخ الجديد:", data.orderDate);
             
             if (
                 newName !== null && 
                 newPhone !== null && 
                 newPipes !== null &&
-                newProvince !== null &&
-                newOrderDate !== null
+                newProvince !== null
             ) {
                 await updateDoc(docRef, {
                     name: newName || data.name,
                     phone: newPhone || data.phone,
                     pipes: newPipes ? parseInt(newPipes) : data.pipes,
-                    province: newProvince || data.province,
-                    orderDate: newOrderDate || data.orderDate
+                    province: newProvince || data.province
                 });
                 await fetchOrders();
                 alert("تم التحديث بنجاح!");
@@ -168,7 +171,7 @@ async function saveNoteToFirebase() {
     try {
         await setDoc(doc(db, "orders", "A", "notes", "current_note"), {
             text: noteText,
-            timestamp: new Date().toISOString()
+            timestamp: serverTimestamp()
         });
         alert("تم استبدال الملاحظة القديمة بنجاح!");
         document.getElementById('noteText').value = "";
@@ -179,7 +182,33 @@ async function saveNoteToFirebase() {
     }
 }
 
+async function addNewOrder() {
+    const name = prompt("أدخل اسم العميل:");
+    const phone = prompt("أدخل رقم الهاتف:");
+    const pipes = prompt("أدخل عدد الأنابيب:");
+    const province = prompt("أدخل المحافظة:");
+    
+    if (name && phone) {
+        try {
+            await addDoc(collection(db, "orders"), {
+                name: name,
+                phone: phone,
+                pipes: parseInt(pipes) || 0,
+                province: province || 'غير محدد',
+                orderDate: serverTimestamp(),
+                status: "قيد الانتظار"
+            });
+            await fetchOrders();
+            alert("تمت الإضافة بنجاح!");
+        } catch (error) {
+            console.error("خطأ في الإضافة:", error);
+            alert("فشل في إضافة الطلب!");
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('saveNoteBtn').addEventListener('click', saveNoteToFirebase);
+    document.getElementById('addOrderBtn').addEventListener('click', addNewOrder);
     fetchOrders();
 });
